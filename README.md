@@ -16,15 +16,13 @@ How to use
 
 Currently, Tryout supports 3 alternatives of conditional logic.
 
-**if**
+**if/unless**: call any method on the result of the `try` block.
 
     value = Tryout.try { RestClient.get('http://www.google.com') }.retry(3, :if => :empty?)
-
-**unless**
-
     value = Tryout.try { RestClient.get('http://www.google.com') }.retry(3, :unless => :present?)
 
-**custom block**
+**block**: the result of the `try` block will be passed as argument for the second one.
+Is up to you when the result is considered invalid.
 
     value = Tryout.try { RestClient.get('http://www.google.com') }.retry(3) do |invalid|
       # Invalidate when response have length lesser than 100
