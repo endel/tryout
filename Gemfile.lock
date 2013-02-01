@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tryout (0.1.0)
+    tryout (0.1.1)
 
 GEM
   remote: http://rubygems.org/

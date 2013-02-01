@@ -5,6 +5,15 @@ describe Tryout do
     Tryout::VERSION.should be_a(String)
   end
 
+  it "should retry 2 times" do
+    sample = [
+      lambda { raise "error!" },
+      lambda { raise "error!" },
+      lambda { "fine!" }
+    ].each
+    Tryout.try { sample.next.call }.retry(3).should == "fine!"
+  end
+
   it "should retry 3 times" do
     sample = [1,2,3].each
     valid = Tryout.try do

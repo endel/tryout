@@ -30,7 +30,7 @@ class Tryout
   # @option [Symbol] unless   method to call from result
   #
   # @return [Object] result from block call
-  def retry(times = 2, conditions = nil, &evaluator)
+  def retry(times = 2, conditions = {}, &evaluator)
     result = @block.call
 
     # Call block to evaluate valid result
@@ -59,12 +59,12 @@ class Tryout
     # @param [Object] result
     # @param [Hash] conditions
     # @return [Boolean] need a retry?
-    def apply_conditions?(result, conditions)
+    def apply_conditions?(result, conditions={})
       negation = conditions.has_key?(:unless)
       bool = if conditions.has_key?(:match)
                conditions[:match]
-             else
-               result.send(conditions[:if] || conditions[:unless])
+             elsif (method = conditions[:if] || conditions[:unless])
+               result.send(method)
              end
 
       (negation) ? !bool : bool

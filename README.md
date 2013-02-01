@@ -14,7 +14,7 @@ internet connectivity lost.
 How to use
 ---
 
-Currently, Tryout supports 3 alternatives of conditional logic.
+    value = Tryout.try { RestClient.get('http://www.google.com') }.retry(3)
 
 **if/unless**: call any method on the result of the `try` block.
 
